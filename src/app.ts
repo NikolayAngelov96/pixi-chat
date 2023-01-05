@@ -10,7 +10,7 @@ const app = new Application({
 
 type TilesType = 'bevel' | 'hover' | 'inset';
 
-const tiles = new Map<TilesType, Texture>();
+export const tiles = new Map<TilesType, Texture>();
 
 loadAssets().then(() => {
     tiles.set('bevel', Texture.from('bevel'));
@@ -21,18 +21,18 @@ loadAssets().then(() => {
 
     app.stage.addChild(bevel);
 
+    const button = new SendButton(625, 525, 150, 50);
+
+    document.body.appendChild(app.view as HTMLCanvasElement);
+
+    app.stage.addChild(button.container);
+
+    app.ticker.add(update);
+
+
+    function update(delta: number) {
+
+    }
 });
 
-const button = new SendButton(250, 200, 200, 50);
-
-document.body.appendChild(app.view as HTMLCanvasElement);
-
-app.stage.addChild(button.container);
-
-app.ticker.add(update);
-
-
-function update(delta: number) {
-
-}
 
