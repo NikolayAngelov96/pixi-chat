@@ -1,5 +1,6 @@
-import { Application, Sprite, Texture } from 'pixi.js';
-import { SendButton } from './SendButon';
+import { Application } from 'pixi.js';
+import { Button } from './Button';
+import { createPanel, tileTexture } from './utils/createPanel';
 import { loadAssets } from './utils/loadAssets';
 
 const app = new Application({
@@ -8,31 +9,35 @@ const app = new Application({
     backgroundColor: 0x4472c4
 });
 
-type TilesType = 'bevel' | 'hover' | 'inset';
+document.body.appendChild(app.view as HTMLCanvasElement);
 
-export const tiles = new Map<TilesType, Texture>();
+app.ticker.add(update);
 
-loadAssets().then(() => {
-    tiles.set('bevel', Texture.from('bevel'));
-    tiles.set('hover', Texture.from('hover'));
-    tiles.set('inset', Texture.from('inset'));
+main();
 
-    const bevel = Sprite.from(tiles.get('inset'));
+async function main() {
+    const assets = await loadAssets();
 
-    app.stage.addChild(bevel);
+    const buttonTiles = tileTexture(assets.get('bevel'), 25, 105, 25, 105);
+    const hoverTiles = tileTexture(assets.get('hover'), 25, 105, 25, 105);
 
-    const button = new SendButton(625, 525, 150, 50);
+    const sendBtn = new Button(
+        'Send',
+        onClick,
+        createPanel(buttonTiles, 150, 50),
+        createPanel(hoverTiles, 150, 50)
+    );
 
-    document.body.appendChild(app.view as HTMLCanvasElement);
+    sendBtn.position.set(400 - sendBtn.width / 2, 300 - sendBtn.height / 2);
 
-    app.stage.addChild(button.container);
+    app.stage.addChild(sendBtn);
 
-    app.ticker.add(update);
+}
 
+function onClick() {
+    alert('Button clicked');
+}
 
-    function update(delta: number) {
+function update() {
 
-    }
-});
-
-
+}
