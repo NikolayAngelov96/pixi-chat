@@ -20,6 +20,7 @@ async function main() {
 
     const buttonTiles = tileTexture(assets.get('bevel'), 25, 105, 25, 105);
     const hoverTiles = tileTexture(assets.get('hover'), 25, 105, 25, 105);
+    const insetTiles = tileTexture(assets.get('inset'), 25, 105, 25, 105);
 
     const sendBtn = new Button(
         'Send',
@@ -28,9 +29,16 @@ async function main() {
         createPanel(hoverTiles, 150, 50)
     );
 
-    sendBtn.position.set(400 - sendBtn.width / 2, 300 - sendBtn.height / 2);
-
+    sendBtn.position.set(625, 525);
     app.stage.addChild(sendBtn);
+
+    const textarea = createPanel(insetTiles, 750, 475);
+    textarea.position.set(25, 25);
+    app.stage.addChild(textarea);
+
+    const textInput = createPanel(insetTiles, 575, 50);
+    textInput.position.set(25, 525);
+    app.stage.addChild(textInput);
 
 }
 
