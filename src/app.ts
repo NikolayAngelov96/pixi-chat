@@ -1,7 +1,10 @@
 import { Application } from 'pixi.js';
 import { Button } from './Button';
+import { Textarea } from './Textarea';
+import { TextInput } from './TextInut';
 import { createPanel, tileTexture } from './utils/createPanel';
 import { loadAssets } from './utils/loadAssets';
+import { whitelist } from './utils/whitelist';
 
 const app = new Application({
     width: 800,
@@ -32,18 +35,35 @@ async function main() {
     sendBtn.position.set(625, 525);
     app.stage.addChild(sendBtn);
 
-    const textarea = createPanel(insetTiles, 750, 475);
+    const textarea = new Textarea(createPanel(insetTiles, 750, 475));
     textarea.position.set(25, 25);
     app.stage.addChild(textarea);
 
-    const textInput = createPanel(insetTiles, 575, 50);
+    const textInput = new TextInput(createPanel(insetTiles, 575, 50));
     textInput.position.set(25, 525);
     app.stage.addChild(textInput);
 
-}
+    document.body.addEventListener('keydown', onKeypress);
 
-function onClick() {
-    alert('Button clicked');
+    function onKeypress(e: KeyboardEvent) {
+        let letter = e.key;
+
+        if (letter == 'Enter') {
+            console.log('enter pressed');
+            // send message
+        } else if (letter == 'Backspace') {
+            textInput.input = textInput.input.slice(0, textInput.input.length - 1);
+        } else if (whitelist.includes(letter)) {
+            textInput.input += letter;
+        }
+
+
+    }
+
+    function onClick() {
+        alert('Button clicked');
+    }
+
 }
 
 function update() {
