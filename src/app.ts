@@ -48,8 +48,15 @@ async function main() {
     function onKeypress(e: KeyboardEvent) {
         let letter = e.key;
 
+        // TODO: when shift and enter for new row it looks very ugly !!!!
+
         if (letter == 'Enter') {
-            console.log('enter pressed');
+            if (e.shiftKey) {
+                console.log('enter with shift pressed');
+                textInput.input += '\n';
+            } else {
+                onClick();
+            }
             // send message
         } else if (letter == 'Backspace') {
             textInput.input = textInput.input.slice(0, textInput.input.length - 1);
@@ -61,7 +68,10 @@ async function main() {
     }
 
     function onClick() {
-        alert('Button clicked');
+        if (textInput.input !== '') {
+            textarea.addMessage(textInput.input);
+            textInput.input = '';
+        }
     }
 
 }
