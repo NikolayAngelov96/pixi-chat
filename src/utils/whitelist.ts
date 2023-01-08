@@ -1,1 +1,0 @@
-export const whitelist = 'qwertyuiop[]asdfghjkl;\'zxcvbnm,./<>:"{}1234567890-=+_)(*&^%$#@!`~№€§чявертъуиопшщюасдфгхйклзьцжбнмЯВЕРТЧЪУИОПШЩЮАСДФГХЙКЛЗЬЦЖБНМQWERTYUIOPASDFGHJKLZXCVBNM ?';
