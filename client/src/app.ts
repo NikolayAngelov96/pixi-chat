@@ -88,8 +88,3 @@ async function main() {
     }
 
 }
-
-function update() {
-
-}
-
