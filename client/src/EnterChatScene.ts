@@ -1,6 +1,6 @@
 import { Container, FederatedPointerEvent, Text } from "pixi.js";
 import { Button } from "./Button";
-import { IScene } from "./Manager";
+import { IScene, Manager } from "./Manager";
 import { TextInput } from "./TextInut";
 import { whitelist } from "./utils/whitelist";
 
@@ -63,8 +63,8 @@ export class EnterChatScene extends Container implements IScene {
         container.addChild(this.usernameInput);
         container.addChild(usernameText);
 
-        container.position.set(400 - container.width / 2, 200);
-        usernameText.position.set(400 - container.width - 30, -30)
+        container.position.set(Manager.width / 2 - container.width / 2, 200);
+        usernameText.position.set(Manager.width / 2 - container.width - 30, -30);
         this.addChild(container);
 
     }
@@ -80,8 +80,8 @@ export class EnterChatScene extends Container implements IScene {
 
         container.addChild(roomIdText);
 
-        container.position.set(400 - container.width / 2, 330);
-        roomIdText.position.set(400 - container.width - 30, -30)
+        container.position.set(Manager.width / 2 - container.width / 2, 330);
+        roomIdText.position.set(Manager.width / 2 - container.width - 30, -30);
         this.addChild(container);
 
     }
