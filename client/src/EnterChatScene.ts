@@ -1,10 +1,10 @@
 import { Container, FederatedPointerEvent, Text } from "pixi.js";
 import { Button } from "./Button";
-import { Keyboard } from "./Keyboard";
+import { IScene } from "./Manager";
 import { TextInput } from "./TextInut";
 import { whitelist } from "./utils/whitelist";
 
-export class EnterChatScene extends Container {
+export class EnterChatScene extends Container implements IScene {
     private activeInput: TextInput;
     constructor(
         public usernameInput: TextInput,
@@ -21,10 +21,14 @@ export class EnterChatScene extends Container {
 
         this.usernameInput.on('pointerdown', this.onUsernameInputSelection.bind(this));
         this.chatIdInput.on('pointerdown', this.onChatIdInputSelection.bind(this));
-        Keyboard.initialize(this.onKeydown.bind(this));
+        document.addEventListener('keydown', this.onKeydown.bind(this));
 
         this.on('destroyed', this.removeEvents.bind(this));
     }
+
+    update(dt: number) {
+
+    };
 
     private onUsernameInputSelection(e: FederatedPointerEvent) {
         this.activeInput = this.usernameInput;
@@ -63,7 +67,6 @@ export class EnterChatScene extends Container {
         usernameText.position.set(400 - container.width - 30, -30)
         this.addChild(container);
 
-
     }
 
     private addRoomIdField() {
@@ -84,8 +87,8 @@ export class EnterChatScene extends Container {
     }
 
     private removeEvents() {
-        this.usernameInput.off('pointerdown', this.onUsernameInputSelection.bind(this));
-        this.chatIdInput.off('pointerdown', this.onChatIdInputSelection.bind(this));
-        Keyboard.removeEvent();
+        this.usernameInput.off('pointerdown', this.onUsernameInputSelection);
+        this.chatIdInput.off('pointerdown', this.onChatIdInputSelection);
+        document.removeEventListener('keydown', this.onKeydown);
     }
 }
